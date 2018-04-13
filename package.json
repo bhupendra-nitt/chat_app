@@ -4,8 +4,12 @@
   "description": "Sample chat application",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "test"
   },
   "author": "bhupendra",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.16.3"
+  }
 }
