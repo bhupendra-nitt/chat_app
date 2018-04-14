@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
+import FriendList from './FriendList';
+import ChatWindow from './ChatWindow';
+
 class App extends Component {
     constructor(props) {
       super(props);
       this.socket = io('localhost:3000');
       this.handleSendClick = this.handleSendClick.bind(this);
       this.socket.on('RECEIVE_MESSAGE', (data) => this.handleIncomingMessage(data));
-      const addMessage = data => {
-        console.log(data);
-        this.setState({ messages: [...this.state.messages, data] });
-        console.log(this.state.messages);
-      };
     }
 
   handleSendClick() {
@@ -30,12 +28,10 @@ class App extends Component {
     render () {
         return (
         <div>
-            Hello from inside react
-            
+            <FriendList/>
             <div>
-                    <input id='m' autoComplete='off'/><button
-                    onClick={(e) => this.handleSendClick(e)}
-                    >Send</button>
+              <ChatWindow
+                handleSendClick={(e) => this.handleSendClick(e)}/> 
                 </div>
         </div>
     );

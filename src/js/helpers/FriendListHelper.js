@@ -1,5 +1,5 @@
-const getFriendList = () => {
-    return [
+const getFriendList =  
+     [
         { id: 1, name: 'Kent C Dotts'},
         { id: 2, name: 'Brendan Eich'},
         { id: 3, name: 'Eric Elliott' },
@@ -10,7 +10,6 @@ const getFriendList = () => {
         { id: 8, name: 'Adi Somani' },
         { id: 9, name: 'Elliot Alderson' },
         { id: 10, name: 'Michael Jackson' }
-    ];
-};
+];
 
 export { getFriendList };
