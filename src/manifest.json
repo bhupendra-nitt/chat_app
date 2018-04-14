@@ -1,0 +1,16 @@
+{
+    "name": "Chat app",
+    "short_name": "Chat app",
+    "icons": [
+        {
+            "src": "/images/favicon.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "orientation": "portrait",
+    "display": "fullscreen",
+    "theme_color": "#F0F0F0",
+    "background_color": "#F0F0F0"
+}
