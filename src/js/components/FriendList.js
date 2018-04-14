@@ -9,28 +9,29 @@ const handleAttributeChange = (changeHandler, e) => changeHandler(e);
 
 const FriendList = (props) => {
   const { selectReceiver, currentUserId, updateValueOfAutoSelect } = props;
-    const friendList = getFriendList.map(friend=> {
-      return { value: friend.id, label: friend.name }
-    });
-    return (
-        <div>
-        <Select
-          style={{ width: '100%' }}
-          name='name'
-          options={friendList}
-          onChange={partial(handleAttributeChange, updateValueOfAutoSelect)} />
-            {
-          getFriendList.map((friend) => {
-                return <FriendTile
-                key={friend.id} 
-                shouldRender={friend.id !== currentUserId}
-                friend={friend}
-                selectReceiver={(e) => selectReceiver(e)}/> 
-             }
-            )
-            }
-        </div>
-    );
+  const friendList = getFriendList.map(friend=> {
+    return { value: friend.id, label: friend.name }
+  });
+  return (
+      <div>
+        <span style={{ color: 'green' }}>{`Hello, ${getFriendList[currentUserId-1].name}`}</span>
+      <Select
+        style={{ width: '100%' }}
+        name='name'
+        options={friendList}
+        onChange={partial(handleAttributeChange, updateValueOfAutoSelect)} />
+          {
+        getFriendList.map((friend) => {
+          return <FriendTile
+          key={friend.id} 
+          shouldRender={friend.id !== currentUserId}
+          friend={friend}
+          selectReceiver={(e) => selectReceiver(e)}
+          /> 
+        })
+      }
+    </div>
+  );
 };
 
 FriendList.propTypes = {
