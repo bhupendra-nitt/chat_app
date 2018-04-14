@@ -56,16 +56,6 @@ io.on('connection', function (socket) {
   socket.on('SEND_MESSAGE', function (data) {
     io.emit('RECEIVE_MESSAGE', data);
   })
-
-  socket.on('disconnect', function () {
-    if (addedUser) {
-      --numUsers;
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        numUsers: numUsers
-      });
-    }
-  });
 });
 
 http.listen(3000, function () {

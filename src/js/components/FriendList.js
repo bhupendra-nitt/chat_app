@@ -1,21 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Select from 'react-select';
+import { partial } from 'lodash';
+
 import FriendTile from './FriendTile';
 import { getFriendList } from '../helpers/FriendListHelper';
+const handleAttributeChange = (changeHandler, e) => changeHandler(e);
 
-const FriendList = () => {
-    const friendList = getFriendList;
+const FriendList = (props) => {
+  const { selectReceiver, currentUserID, updateValueOfAutoSelect } = props;
+    const friendList = getFriendList.map(friend=> {
+      return { value: friend.id, label: friend.name }
+    });
     return (
         <div>
+        <Select
+          style={{ width: '100%' }}
+          name='name'
+          options={friendList}
+          onChange={partial(handleAttributeChange, updateValueOfAutoSelect)} />
             {
-                friendList.map((friend) => {
+          getFriendList.map((friend) => {
                 return <FriendTile
                 key={friend.id} 
-                friend={friend}/> 
+                shouldRender={friend.id !==currentUserID}
+                friend={friend}
+                selectReceiver={(e) => selectReceiver(e)}/> 
              }
-                )
+            )
             }
         </div>
     );
+};
+
+FriendList.propTypes = {
+  selectReceiver: PropTypes.func.isRequired,
+  currentUserID: PropTypes.number.isRequired,
+  updateValueOfAutoSelect: PropTypes.func.isRequired
 };
 
 export default FriendList;
