@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  chat:
+    container_name: chat
+    entrypoint: /entrypoint.sh
+    command: yarn run dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/opt/chat'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
