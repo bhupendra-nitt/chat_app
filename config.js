@@ -1,5 +1,5 @@
 module.export = {
-    'PORT': 3001,
+    'PORT': 3000,
     'CDN_HOST_URL': '',
-    'ROUTE_PREFIX': '' 
+    'HOST_NAME': 'http://localhost:3000' 
 }

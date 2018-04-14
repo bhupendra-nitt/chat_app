@@ -4,17 +4,23 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const path = require('path');
 const fs = require('fs');
+const { includes } = require('lodash');
 const config = require('./config');
 const bodyParser = require('body-parser');
 const BUILD_DIR = path.resolve(__dirname, 'build');
 
 const assetsManifest = (() => {
+  if (includes(['production', 'staging'], process.env.NODE_ENV)) {
     const manifestFile = JSON.parse(fs.readFileSync('./build/assets-manifest.json', 'utf8'));
     return {
       js: manifestFile['index.js'],
-      css: manifestFile['index.css'],
       runtimeJs: manifestFile['runtime.js']
     };
+  }
+  return {
+    js: 'js/index.js',
+    runtimeJs: 'js/runtime.js'
+  };
 })();
 
 const indexTemplateData = {
@@ -45,14 +51,62 @@ app.set("views", path.join(__dirname, "views"));
 app.get('/', function (req, res) {
   res.render('index', indexTemplateData);
 });
-  
+
+var numUsers = 0;
+
 io.on('connection', function (socket) {
-  console.log('a user connected');
+  var addedUser = false;
+
+  socket.on('SEND_MESSAGE', function (data) {
+    console.log(data);
+    io.emit('RECEIVE_MESSAGE', data);
+  })
+
+  socket.on('new message', function (data) {
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+  });
+
+  socket.on('add user', function (username) {
+    if (addedUser) return;
+    socket.username = username;
+    ++numUsers;
+    addedUser = true;
+    socket.emit('login', {
+      numUsers: numUsers
+    });
+
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+  });
+
+  socket.on('typing', function () {
+    socket.broadcast.emit('typing', {
+      username: socket.username
+    });
+  });
+
+  socket.on('stop typing', function () {
+    socket.broadcast.emit('stop typing', {
+      username: socket.username
+    });
+  });
+
   socket.on('disconnect', function () {
-    console.log('user disconnected');
+    if (addedUser) {
+      --numUsers;
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers
+      });
+    }
   });
 });
 
 http.listen(3000, function () {
-  console.log('listening on *:3000');
+  console.log(`listening on :${config.PORT}`);
 });
