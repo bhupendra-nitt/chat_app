@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/bhupendrasingh/.nvm/versions/node/v9.11.1/bin/node /Users/bhupendrasingh/.yarn/bin/yarn.js run build
+  /Users/bhupendrasingh/.nvm/versions/node/v9.11.1/bin/node /Users/bhupendrasingh/.yarn/bin/yarn.js run dev
 
 PATH: 
   /Users/bhupendrasingh/.nvm/versions/node/v9.11.1/bin:/Users/bhupendrasingh/.yarn/bin:/Users/bhupendrasingh/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/local/opt/node@6/bin:/usr/local/opt/node@6/bin:/Users/bhupendrasingh/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/mysql55/bin
@@ -22,11 +22,10 @@ npm manifest:
     "scripts": {
       "start": "node server.js",
       "test": "test",
-      "prebuild": "envify config.js.example > config.js",
+      "prebuild": "sh scripts/cleanup.sh && envify config.js.example > config.js",
       "prebuild:dev": "envify config.js.example > config.js",
       "build": "NODE_ENV=production webpack -p --config webpack/webpack.config.js --progress --color",
       "build:dev": "NODE_ENV=development webpack --config webpack/webpack.config.js --watch --progress",
-      "postbuild": "sh scripts/move_sourcemaps.sh",
       "dev": "npm run prebuild:dev && NODE_ENV=development babel-node server.js"
     },
     "author": "bhupendra",
@@ -94,7 +93,8 @@ npm manifest:
         "react"
       ],
       "plugins": [
-        "transform-object-rest-spread"
+        "transform-object-rest-spread",
+        "babel-plugin-transform-class-properties"
       ]
     }
   }
@@ -8687,9 +8687,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 127
+  Exit code: 1
   Command: sh
-  Arguments: -c sh scripts/move_sourcemaps.sh
+  Arguments: -c npm run prebuild:dev && NODE_ENV=development babel-node server.js
   Directory: /Users/bhupendrasingh/Desktop/Workspace/Learning/Node/chat_app
   Output:
   
