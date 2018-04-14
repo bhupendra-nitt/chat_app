@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { map } from 'lodash';
+import IncomingMessage from './IncomingMessage';
+import OutgoingMessage from './OutgoingMessage';
+
 import { getFriendList } from '../helpers/FriendListHelper';
+const handleAttributeChange = (changeHandler, e) => changeHandler(e.target.value);
 
 const ChatWindow = (props) => {
-  const { handleSendClick, receiverId } = props;
+  const { handleSendClick, receiverId, updateMessage, currentUserId, message } = props;
+  const allMessages = JSON.parse(localStorage.getItem('allMessages'));
     return (
         <div style={{
             width: '100 %',
@@ -16,11 +22,28 @@ const ChatWindow = (props) => {
                 width: '100%',
                 height: '80%',
                 border: '1px solid #d3d3d3',
-                borderRadius: '5px'}} />
+                borderRadius: '5px'}} >{
+            map(allMessages, (message) => {
+              if(message.author === currentUserId && message.receiver === receiverId) {
+              return <OutgoingMessage
+                key={allMessages.indexOf(message)} 
+                 message={message}/>
+              }
+              if (message.receiver === currentUserId && message.author === receiverId) {
+                return <IncomingMessage
+                  key={allMessages.indexOf(message)}
+                  message={message}/>
+              }
+              return null;
+            }) 
+          }
+            </div>
             <div style={{width: '100%'}}>
                 <input id='m' 
                 autoComplete='off' 
                 style={{ width: '80%', padding: '10px' }}
+                value={message}
+                onChange={(e) => handleAttributeChange(updateMessage, e)}
                 />
                 <button
                     onClick={(e) => handleSendClick(e)}
@@ -38,7 +61,10 @@ const ChatWindow = (props) => {
 
 ChatWindow.propTypes = {
   handleSendClick: PropTypes.func.isRequired,
-  receiverId: PropTypes.number 
+  receiverId: PropTypes.number,
+  updateMessage: PropTypes.func.isRequired,
+  currentUserId: PropTypes.number.isRequired,
+  message: PropTypes.string 
 };
 
 export default ChatWindow;

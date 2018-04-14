@@ -8,7 +8,7 @@ import { getFriendList } from '../helpers/FriendListHelper';
 const handleAttributeChange = (changeHandler, e) => changeHandler(e);
 
 const FriendList = (props) => {
-  const { selectReceiver, currentUserID, updateValueOfAutoSelect } = props;
+  const { selectReceiver, currentUserId, updateValueOfAutoSelect } = props;
     const friendList = getFriendList.map(friend=> {
       return { value: friend.id, label: friend.name }
     });
@@ -23,7 +23,7 @@ const FriendList = (props) => {
           getFriendList.map((friend) => {
                 return <FriendTile
                 key={friend.id} 
-                shouldRender={friend.id !==currentUserID}
+                shouldRender={friend.id !== currentUserId}
                 friend={friend}
                 selectReceiver={(e) => selectReceiver(e)}/> 
              }
@@ -35,7 +35,7 @@ const FriendList = (props) => {
 
 FriendList.propTypes = {
   selectReceiver: PropTypes.func.isRequired,
-  currentUserID: PropTypes.number.isRequired,
+  currentUserId: PropTypes.number.isRequired,
   updateValueOfAutoSelect: PropTypes.func.isRequired
 };
 
