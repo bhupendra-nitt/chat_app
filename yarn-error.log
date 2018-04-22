@@ -2,7 +2,7 @@ Arguments:
   /Users/bhupendrasingh/.nvm/versions/node/v9.11.1/bin/node /Users/bhupendrasingh/.yarn/bin/yarn.js run dev
 
 PATH: 
-  /Users/bhupendrasingh/.nvm/versions/node/v9.11.1/bin:/Users/bhupendrasingh/.yarn/bin:/Users/bhupendrasingh/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/local/opt/node@6/bin:/usr/local/opt/node@6/bin:/Users/bhupendrasingh/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/mysql55/bin
+  /Users/bhupendrasingh/.yarn/bin:/Users/bhupendrasingh/.config/yarn/global/node_modules/.bin:/Users/bhupendrasingh/.nvm/versions/node/v9.11.1/bin:/usr/local/bin:/usr/local/opt/node@6/bin:/usr/local/opt/node@6/bin:/Users/bhupendrasingh/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/mysql55/bin
 
 Yarn version: 
   1.5.1
@@ -48,8 +48,10 @@ npm manifest:
       "eslint-plugin-no-storage": "^1.0.2",
       "express": "^4.15.2",
       "extract-text-webpack-plugin": "^3.0.0",
+      "flux": "^3.1.3",
       "grid-styled": "^4.0.0",
       "html-webpack-plugin": "^2.30.1",
+      "keymirror": "^0.1.1",
       "lodash": "^4.15.0",
       "lodash-deep": "^2.0.0",
       "node-sass": "^4.5.3",
@@ -2995,7 +2997,13 @@ Lockfile:
     dependencies:
       bser "1.0.2"
   
-  fbjs@^0.8.16, fbjs@^0.8.5, fbjs@^0.8.9:
+  fbemitter@^2.0.0:
+    version "2.1.1"
+    resolved "https://registry.yarnpkg.com/fbemitter/-/fbemitter-2.1.1.tgz#523e14fdaf5248805bb02f62efc33be703f51865"
+    dependencies:
+      fbjs "^0.8.4"
+  
+  fbjs@^0.8.0, fbjs@^0.8.16, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.9:
     version "0.8.16"
     resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
     dependencies:
@@ -3113,6 +3121,13 @@ Lockfile:
     dependencies:
       inherits "^2.0.1"
       readable-stream "^2.0.4"
+  
+  flux@^3.1.3:
+    version "3.1.3"
+    resolved "https://registry.yarnpkg.com/flux/-/flux-3.1.3.tgz#d23bed515a79a22d933ab53ab4ada19d05b2f08a"
+    dependencies:
+      fbemitter "^2.0.0"
+      fbjs "^0.8.0"
   
   for-in@^0.1.3:
     version "0.1.8"
@@ -4752,6 +4767,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz#e801b1b39985e20fffc87b40e3748080e2dcac7f"
     dependencies:
       array-includes "^3.0.3"
+  
+  keymirror@^0.1.1:
+    version "0.1.1"
+    resolved "https://registry.yarnpkg.com/keymirror/-/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
   
   kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
     version "3.2.2"
@@ -8761,7 +8780,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
+  Exit code: 134
   Command: sh
   Arguments: -c npm run prebuild:dev && NODE_ENV=development babel-node server.js
   Directory: /Users/bhupendrasingh/Desktop/Workspace/Learning/Node/chat_app
