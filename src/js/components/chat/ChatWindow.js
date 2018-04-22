@@ -4,12 +4,13 @@ import { map } from 'lodash';
 import IncomingMessage from './IncomingMessage';
 import OutgoingMessage from './OutgoingMessage';
 
-import { getFriendList } from '../helpers/FriendListHelper';
+import { getFriendList } from '../../helpers/FriendListHelper';
 const handleAttributeChange = (changeHandler, e) => changeHandler(e.target.value);
 
 const ChatWindow = (props) => {
-  const { handleSendClick, receiverId, updateMessage, currentUserId, message } = props;
-  const allMessages = JSON.parse(localStorage.getItem('allMessages'));
+  const { 
+    handleSendClick, receiverId, updateMessage, currentUserId, message, messageList 
+  } = props;
     return (
       <div style={{
         width: '100 %',
@@ -27,15 +28,15 @@ const ChatWindow = (props) => {
         padding: '10px',
         overflow: 'scroll'}} >
         {
-          map(allMessages, (message) => {
+            map(messageList, (message) => {
             if(message.author === currentUserId && message.receiver === receiverId) {
             return <OutgoingMessage
-              key={allMessages.indexOf(message)} 
+              key={messageList.indexOf(message)} 
                 message={message}/>
             }
             if (message.receiver === currentUserId && message.author === receiverId) {
               return <IncomingMessage
-                key={allMessages.indexOf(message)}
+                key={messageList.indexOf(message)}
                 message={message}/>
             }
             return null;
@@ -71,7 +72,8 @@ ChatWindow.propTypes = {
   receiverId: PropTypes.number,
   updateMessage: PropTypes.func.isRequired,
   currentUserId: PropTypes.number.isRequired,
-  message: PropTypes.string 
+  message: PropTypes.string,
+  messageList: PropTypes.array
 };
 
 export default ChatWindow;
