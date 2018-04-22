@@ -7,10 +7,7 @@ class ContactList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUserId: ChatStore.getCurrentUserId(),
-      receiverId: ChatStore.getCurrentReceiverId(),
-      message: ChatStore.getMessage(),
-      messageList: ChatStore.getMessageList()
+      currentUserId: ChatStore.getCurrentUserId()
     };
   }
 

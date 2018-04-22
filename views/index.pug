@@ -7,13 +7,10 @@ html(lang='en')
     meta(name='robots', content='noindex, nofollow')
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css")
 
-  body(onunload="removeLocalStorage()")
+  body
     #main
     script(src=`/${assetsManifest.runtimeJs}`, type='text/javascript', defer=true)
     script(src=`/${assetsManifest.js}`, type='text/javascript', defer=true)
     script(src="/socket.io/socket.io.js")
     script.
       var socket = io();
-      function removeLocalStorage() {
-        localStorage.removeItem('allMessages')
-     }
